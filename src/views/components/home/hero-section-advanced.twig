@@ -1,0 +1,195 @@
+{#
+  Advanced Hero Section Component for Arura Theme
+  Features: Dynamic slider with advanced animations and call-to-action
+#}
+
+<section class="hero-section-advanced bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden" 
+         data-enable-animations="{{ component.enable_animations|default(true) }}">
+    
+    {# Hero Slider Container #}
+    <div class="hero-slider relative w-full min-h-[60vh] lg:min-h-[70vh]" 
+         x-data="heroSlider" x-init="init()">
+        
+        {# Slides #}
+        <div class="slides-container relative w-full h-full">
+            {% for slide in component.slides %}
+                <div class="hero-slide absolute inset-0 w-full h-full opacity-0 transition-opacity duration-1000"
+                     :class="{ 'opacity-100': currentSlide === {{ loop.index0 }} }"
+                     style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('{{ slide.image }}'); background-size: cover; background-position: center;">
+                    
+                    <div class="container mx-auto px-4 h-full flex items-center">
+                        <div class="hero-content max-w-2xl text-white">
+                            
+                            {# Main Title #}
+                            {% if slide.title %}
+                                <h1 class="hero-title text-4xl lg:text-6xl font-bold mb-4 leading-tight"
+                                    x-show="currentSlide === {{ loop.index0 }}"
+                                    x-transition:enter="transition ease-out duration-1000 delay-300"
+                                    x-transition:enter-start="opacity-0 transform translate-y-8"
+                                    x-transition:enter-end="opacity-100 transform translate-y-0">
+                                    {{ slide.title }}
+                                </h1>
+                            {% endif %}
+                            
+                            {# Subtitle #}
+                            {% if slide.subtitle %}
+                                <p class="hero-subtitle text-lg lg:text-xl mb-8 text-gray-200"
+                                   x-show="currentSlide === {{ loop.index0 }}"
+                                   x-transition:enter="transition ease-out duration-1000 delay-500"
+                                   x-transition:enter-start="opacity-0 transform translate-y-8"
+                                   x-transition:enter-end="opacity-100 transform translate-y-0">
+                                    {{ slide.subtitle }}
+                                </p>
+                            {% endif %}
+                            
+                            {# Call to Action Button #}
+                            {% if slide.button_text and slide.button_url %}
+                                <div x-show="currentSlide === {{ loop.index0 }}"
+                                     x-transition:enter="transition ease-out duration-1000 delay-700"
+                                     x-transition:enter-start="opacity-0 transform translate-y-8"
+                                     x-transition:enter-end="opacity-100 transform translate-y-0">
+                                    <a href="{{ slide.button_url }}" 
+                                       class="hero-cta-btn inline-block bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                        {{ slide.button_text }}
+                                        <i class="sicon-arrow-left mx-2"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        {# Navigation Dots #}
+        {% if component.slides|length > 1 %}
+            <div class="hero-dots absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+                {% for slide in component.slides %}
+                    <button class="dot w-3 h-3 rounded-full bg-white/50 transition-all duration-300"
+                            :class="{ 'bg-white scale-125': currentSlide === {{ loop.index0 }} }"
+                            @click="goToSlide({{ loop.index0 }})">
+                    </button>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {# Navigation Arrows #}
+        {% if component.slides|length > 1 %}
+            <button class="hero-nav hero-prev absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center text-white transition-all duration-300"
+                    @click="prevSlide()">
+                <i class="sicon-arrow-right text-xl"></i>
+            </button>
+            
+            <button class="hero-nav hero-next absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center text-white transition-all duration-300"
+                    @click="nextSlide()">
+                <i class="sicon-arrow-left text-xl"></i>
+            </button>
+        {% endif %}
+        
+    </div>
+    
+    {# Decorative Elements #}
+    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/10 to-transparent rounded-full transform translate-x-32 -translate-y-32"></div>
+    <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-secondary/10 to-transparent rounded-full transform -translate-x-24 translate-y-24"></div>
+    
+</section>
+
+{# Alpine.js Hero Slider Component #}
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('heroSlider', () => ({
+        currentSlide: 0,
+        totalSlides: {{ component.slides|length }},
+        autoplayInterval: null,
+        
+        init() {
+            if (this.totalSlides > 1) {
+                this.startAutoplay();
+            }
+        },
+        
+        goToSlide(index) {
+            this.currentSlide = index;
+            this.resetAutoplay();
+        },
+        
+        nextSlide() {
+            this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+            this.resetAutoplay();
+        },
+        
+        prevSlide() {
+            this.currentSlide = this.currentSlide === 0 ? this.totalSlides - 1 : this.currentSlide - 1;
+            this.resetAutoplay();
+        },
+        
+        startAutoplay() {
+            this.autoplayInterval = setInterval(() => {
+                this.nextSlide();
+            }, 5000);
+        },
+        
+        resetAutoplay() {
+            if (this.autoplayInterval) {
+                clearInterval(this.autoplayInterval);
+                this.startAutoplay();
+            }
+        }
+    }));
+});
+</script>
+
+{# Component Styles #}
+<style>
+.hero-section-advanced {
+    background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-secondary-50) 100%);
+}
+
+.hero-title {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    animation: slideInUp 1s ease-out;
+}
+
+.hero-subtitle {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.hero-cta-btn {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.hero-cta-btn:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.hero-nav {
+    backdrop-filter: blur(10px);
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-nav {
+        display: none;
+    }
+}
+</style>

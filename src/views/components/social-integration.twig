@@ -1,0 +1,332 @@
+{#
+  Social Integration Component for Arura Theme
+  Features: Social media links, sharing functionality, social login
+#}
+
+<section class="social-integration py-8 bg-gray-50">
+    <div class="container mx-auto px-4">
+        
+        {# Social Media Links #}
+        {% if component.social_links|length %}
+            <div class="social-links-container text-center">
+                
+                <h3 class="social-title text-xl font-semibold text-gray-800 mb-6">
+                    {{ trans('social.follow_us') }}
+                </h3>
+                
+                <div class="social-links flex justify-center items-center space-x-4 mb-8">
+                    {% for link in component.social_links %}
+                        <a href="{{ link.url }}" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="social-link group relative w-12 h-12 bg-white hover:bg-{{ link.platform }} rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+                           data-platform="{{ link.platform }}"
+                           title="{{ trans('social.follow_on') }} {{ link.platform|title }}">
+                            
+                            {# Platform Icon #}
+                            {% set platform_icons = {
+                                'twitter': 'sicon-twitter',
+                                'instagram': 'sicon-instagram', 
+                                'facebook': 'sicon-facebook',
+                                'linkedin': 'sicon-linkedin',
+                                'youtube': 'sicon-youtube',
+                                'tiktok': 'sicon-tiktok',
+                                'whatsapp': 'sicon-whatsapp',
+                                'telegram': 'sicon-telegram'
+                            } %}
+                            
+                            <i class="{{ platform_icons[link.platform] ?: link.icon ?: 'sicon-share' }} text-xl text-gray-600 group-hover:text-white transition-colors duration-300"></i>
+                            
+                            {# Hover Effect Circle #}
+                            <div class="hover-circle absolute inset-0 bg-gradient-to-br from-{{ link.platform }}-400 to-{{ link.platform }}-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                        </a>
+                    {% endfor %}
+                </div>
+                
+            </div>
+        {% endif %}
+        
+        {# Social Share Widget #}
+        <div class="social-share-widget" x-data="socialShare">
+            
+            <div class="share-container bg-white rounded-xl shadow-lg p-6 max-w-md mx-auto">
+                
+                <h4 class="share-title text-lg font-semibold text-gray-800 mb-4 text-center">
+                    {{ trans('social.share_store') }}
+                </h4>
+                
+                <div class="share-buttons grid grid-cols-4 gap-3">
+                    
+                    {# WhatsApp Share #}
+                    <button class="share-btn whatsapp bg-green-500 hover:bg-green-600 text-white p-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                            @click="shareToWhatsApp()"
+                            title="{{ trans('social.share_whatsapp') }}">
+                        <i class="sicon-whatsapp text-lg"></i>
+                    </button>
+                    
+                    {# Telegram Share #}
+                    <button class="share-btn telegram bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                            @click="shareToTelegram()"
+                            title="{{ trans('social.share_telegram') }}">
+                        <i class="sicon-telegram text-lg"></i>
+                    </button>
+                    
+                    {# Twitter Share #}
+                    <button class="share-btn twitter bg-sky-500 hover:bg-sky-600 text-white p-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                            @click="shareToTwitter()"
+                            title="{{ trans('social.share_twitter') }}">
+                        <i class="sicon-twitter text-lg"></i>
+                    </button>
+                    
+                    {# Facebook Share #}
+                    <button class="share-btn facebook bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                            @click="shareToFacebook()"
+                            title="{{ trans('social.share_facebook') }}">
+                        <i class="sicon-facebook text-lg"></i>
+                    </button>
+                    
+                </div>
+                
+                {# Copy Link Button #}
+                <div class="copy-link-container mt-4">
+                    <div class="flex items-center bg-gray-100 rounded-lg p-2">
+                        <input type="text" 
+                               :value="currentUrl" 
+                               readonly 
+                               class="flex-1 bg-transparent text-sm text-gray-600 outline-none px-2">
+                        <button class="copy-btn bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md text-sm font-medium transition-all duration-300"
+                                @click="copyToClipboard()"
+                                :class="{ 'bg-green-500': copied }"
+                                x-text="copied ? '{{ trans('social.copied') }}' : '{{ trans('social.copy') }}'">
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+</section>
+
+{# Floating Social Share Button (Mobile) #}
+<div class="floating-share-btn fixed bottom-6 right-6 z-50 lg:hidden" x-data="{ showShare: false }">
+    <button class="share-toggle-btn w-14 h-14 bg-primary hover:bg-primary-dark text-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+            @click="showShare = !showShare">
+        <i class="sicon-share text-xl"></i>
+    </button>
+    
+    {# Mini Share Menu #}
+    <div class="mini-share-menu absolute bottom-16 right-0 bg-white rounded-lg shadow-xl p-3 space-y-2 min-w-[200px]"
+         x-show="showShare"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 transform scale-95"
+         x-transition:enter-end="opacity-100 transform scale-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 transform scale-100"
+         x-transition:leave-end="opacity-0 transform scale-95"
+         @click.outside="showShare = false">
+        
+        <button class="mini-share-btn w-full flex items-center space-x-3 text-left p-2 hover:bg-gray-50 rounded-md transition-colors duration-200"
+                @click="socialShare.shareToWhatsApp(); showShare = false">
+            <i class="sicon-whatsapp text-green-500 text-lg"></i>
+            <span class="text-sm text-gray-700">{{ trans('social.whatsapp') }}</span>
+        </button>
+        
+        <button class="mini-share-btn w-full flex items-center space-x-3 text-left p-2 hover:bg-gray-50 rounded-md transition-colors duration-200"
+                @click="socialShare.shareToTelegram(); showShare = false">
+            <i class="sicon-telegram text-blue-500 text-lg"></i>
+            <span class="text-sm text-gray-700">{{ trans('social.telegram') }}</span>
+        </button>
+        
+        <button class="mini-share-btn w-full flex items-center space-x-3 text-left p-2 hover:bg-gray-50 rounded-md transition-colors duration-200"
+                @click="socialShare.copyToClipboard(); showShare = false">
+            <i class="sicon-copy text-gray-500 text-lg"></i>
+            <span class="text-sm text-gray-700">{{ trans('social.copy_link') }}</span>
+        </button>
+        
+    </div>
+</div>
+
+{# Alpine.js Social Share Component #}
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('socialShare', () => ({
+        currentUrl: window.location.href,
+        storeTitle: document.title,
+        copied: false,
+        
+        shareToWhatsApp() {
+            const text = encodeURIComponent(`${this.storeTitle} - ${this.currentUrl}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        },
+        
+        shareToTelegram() {
+            const text = encodeURIComponent(this.storeTitle);
+            const url = encodeURIComponent(this.currentUrl);
+            window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
+        },
+        
+        shareToTwitter() {
+            const text = encodeURIComponent(this.storeTitle);
+            const url = encodeURIComponent(this.currentUrl);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        },
+        
+        shareToFacebook() {
+            const url = encodeURIComponent(this.currentUrl);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        },
+        
+        async copyToClipboard() {
+            try {
+                await navigator.clipboard.writeText(this.currentUrl);
+                this.copied = true;
+                setTimeout(() => {
+                    this.copied = false;
+                }, 2000);
+                
+                // Show success notification if Salla notifications are available
+                if (typeof salla !== 'undefined' && salla.notify) {
+                    salla.notify.success('{{ trans("social.link_copied_success") }}');
+                }
+            } catch (err) {
+                console.error('Failed to copy to clipboard:', err);
+                // Fallback: select text
+                const textArea = document.createElement('textarea');
+                textArea.value = this.currentUrl;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                this.copied = true;
+                setTimeout(() => {
+                    this.copied = false;
+                }, 2000);
+            }
+        }
+    }));
+});
+
+// Global social share object for external access
+window.socialShare = {
+    shareToWhatsApp: function() {
+        const text = encodeURIComponent(`${document.title} - ${window.location.href}`);
+        window.open(`https://wa.me/?text=${text}`, '_blank');
+    },
+    
+    shareToTelegram: function() {
+        const text = encodeURIComponent(document.title);
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
+    },
+    
+    copyToClipboard: async function() {
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            if (typeof salla !== 'undefined' && salla.notify) {
+                salla.notify.success('{{ trans("social.link_copied_success") }}');
+            }
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
+    }
+};
+</script>
+
+{# Component Styles #}
+<style>
+.social-integration {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.social-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.2) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.social-link:hover::before {
+    opacity: 1;
+}
+
+/* Platform-specific hover colors */
+.social-link[data-platform="twitter"]:hover {
+    background: #1da1f2;
+}
+
+.social-link[data-platform="instagram"]:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-link[data-platform="facebook"]:hover {
+    background: #1877f2;
+}
+
+.social-link[data-platform="linkedin"]:hover {
+    background: #0077b5;
+}
+
+.social-link[data-platform="youtube"]:hover {
+    background: #ff0000;
+}
+
+.social-link[data-platform="tiktok"]:hover {
+    background: #000000;
+}
+
+.social-link[data-platform="whatsapp"]:hover {
+    background: #25d366;
+}
+
+.social-link[data-platform="telegram"]:hover {
+    background: #0088cc;
+}
+
+.share-btn {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.share-btn:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.floating-share-btn {
+    z-index: 1000;
+}
+
+.mini-share-menu {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.copy-btn.bg-green-500 {
+    background-color: #10b981 !important;
+}
+
+@media (max-width: 640px) {
+    .social-links {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .social-link {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .share-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>

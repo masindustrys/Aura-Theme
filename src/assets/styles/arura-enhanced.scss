@@ -1,0 +1,670 @@
+/**
+ * Arura Theme - Advanced Styles
+ * Enhanced CSS for modern e-commerce experience
+ */
+
+/* ================================================
+   1. CSS Custom Properties (CSS Variables)
+   ================================================ */
+
+:root {
+  /* Arura Color Palette */
+  --arura-primary: #2563eb;
+  --arura-primary-dark: #1d4ed8;
+  --arura-primary-light: #60a5fa;
+  --arura-secondary: #7c3aed;
+  --arura-secondary-dark: #6d28d9;
+  --arura-secondary-light: #a78bfa;
+  
+  /* Semantic Colors */
+  --arura-success: #10b981;
+  --arura-warning: #f59e0b;
+  --arura-error: #ef4444;
+  --arura-info: #3b82f6;
+  
+  /* Neutral Colors */
+  --arura-gray-50: #f9fafb;
+  --arura-gray-100: #f3f4f6;
+  --arura-gray-200: #e5e7eb;
+  --arura-gray-300: #d1d5db;
+  --arura-gray-400: #9ca3af;
+  --arura-gray-500: #6b7280;
+  --arura-gray-600: #4b5563;
+  --arura-gray-700: #374151;
+  --arura-gray-800: #1f2937;
+  --arura-gray-900: #111827;
+  
+  /* Typography */
+  --arura-font-arabic: 'Noto Sans Arabic', 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+  --arura-font-english: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  --arura-font-display: 'Poppins', 'Cairo', sans-serif;
+  
+  /* Spacing */
+  --arura-spacing-xs: 0.25rem;
+  --arura-spacing-sm: 0.5rem;
+  --arura-spacing-md: 1rem;
+  --arura-spacing-lg: 1.5rem;
+  --arura-spacing-xl: 2rem;
+  --arura-spacing-2xl: 3rem;
+  
+  /* Border Radius */
+  --arura-radius-sm: 0.375rem;
+  --arura-radius-md: 0.5rem;
+  --arura-radius-lg: 0.75rem;
+  --arura-radius-xl: 1rem;
+  --arura-radius-2xl: 1.5rem;
+  
+  /* Shadows */
+  --arura-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --arura-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --arura-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --arura-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Transitions */
+  --arura-transition-fast: 0.15s ease-in-out;
+  --arura-transition-normal: 0.3s ease-in-out;
+  --arura-transition-slow: 0.5s ease-in-out;
+  
+  /* Z-Index Scale */
+  --arura-z-dropdown: 1000;
+  --arura-z-modal: 1050;
+  --arura-z-popover: 1060;
+  --arura-z-tooltip: 1070;
+  --arura-z-fixed: 1080;
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --arura-gray-50: #1f2937;
+  --arura-gray-100: #374151;
+  --arura-gray-200: #4b5563;
+  --arura-gray-300: #6b7280;
+  --arura-gray-400: #9ca3af;
+  --arura-gray-500: #d1d5db;
+  --arura-gray-600: #e5e7eb;
+  --arura-gray-700: #f3f4f6;
+  --arura-gray-800: #f9fafb;
+  --arura-gray-900: #ffffff;
+}
+
+/* ================================================
+   2. Enhanced Typography
+   ================================================ */
+
+.arura-text {
+  font-family: var(--arura-font-arabic);
+  line-height: 1.6;
+  color: var(--arura-gray-800);
+}
+
+.arura-text-display {
+  font-family: var(--arura-font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.arura-text-gradient {
+  background: linear-gradient(135deg, var(--arura-primary), var(--arura-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Arabic Text Optimization */
+.arura-arabic-optimized {
+  font-family: var(--arura-font-arabic);
+  text-rendering: optimizeLegibility;
+  -webkit-font-feature-settings: "liga", "kern", "calt";
+  font-feature-settings: "liga", "kern", "calt";
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+/* ================================================
+   3. Enhanced Buttons
+   ================================================ */
+
+.arura-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--arura-spacing-sm) var(--arura-spacing-lg);
+  border: none;
+  border-radius: var(--arura-radius-md);
+  font-family: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--arura-transition-normal);
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.arura-btn:focus {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.arura-btn-primary {
+  background: linear-gradient(135deg, var(--arura-primary), var(--arura-primary-dark));
+  color: white;
+  box-shadow: var(--arura-shadow-md);
+}
+
+.arura-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--arura-shadow-lg);
+}
+
+.arura-btn-secondary {
+  background: linear-gradient(135deg, var(--arura-secondary), var(--arura-secondary-dark));
+  color: white;
+  box-shadow: var(--arura-shadow-md);
+}
+
+.arura-btn-outline {
+  background: transparent;
+  border: 2px solid var(--arura-primary);
+  color: var(--arura-primary);
+}
+
+.arura-btn-outline:hover {
+  background: var(--arura-primary);
+  color: white;
+}
+
+/* Button Ripple Effect */
+.arura-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.arura-btn:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* ================================================
+   4. Enhanced Cards
+   ================================================ */
+
+.arura-card {
+  background: white;
+  border-radius: var(--arura-radius-xl);
+  box-shadow: var(--arura-shadow-sm);
+  border: 1px solid var(--arura-gray-200);
+  transition: all var(--arura-transition-normal);
+  overflow: hidden;
+}
+
+.arura-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--arura-shadow-xl);
+  border-color: var(--arura-primary);
+}
+
+.arura-card-header {
+  padding: var(--arura-spacing-lg);
+  border-bottom: 1px solid var(--arura-gray-100);
+}
+
+.arura-card-body {
+  padding: var(--arura-spacing-lg);
+}
+
+.arura-card-footer {
+  padding: var(--arura-spacing-lg);
+  border-top: 1px solid var(--arura-gray-100);
+  background: var(--arura-gray-50);
+}
+
+/* ================================================
+   5. Enhanced Product Cards
+   ================================================ */
+
+.arura-product-card {
+  position: relative;
+  background: white;
+  border-radius: var(--arura-radius-xl);
+  box-shadow: var(--arura-shadow-sm);
+  transition: all var(--arura-transition-normal);
+  overflow: hidden;
+  border: 1px solid var(--arura-gray-100);
+}
+
+.arura-product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--arura-shadow-xl);
+  border-color: var(--arura-primary);
+}
+
+.arura-product-image {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.arura-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--arura-transition-slow);
+}
+
+.arura-product-card:hover .arura-product-image img {
+  transform: scale(1.1);
+}
+
+.arura-product-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--arura-transition-normal);
+}
+
+.arura-product-card:hover .arura-product-overlay {
+  opacity: 1;
+}
+
+.arura-product-actions {
+  display: flex;
+  gap: var(--arura-spacing-sm);
+}
+
+.arura-product-action-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  color: var(--arura-gray-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--arura-transition-normal);
+  box-shadow: var(--arura-shadow-md);
+}
+
+.arura-product-action-btn:hover {
+  background: var(--arura-primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* ================================================
+   6. Enhanced Navigation
+   ================================================ */
+
+.arura-nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--arura-gray-200);
+  transition: all var(--arura-transition-normal);
+}
+
+.arura-nav.sticky {
+  box-shadow: var(--arura-shadow-lg);
+}
+
+.arura-nav-link {
+  padding: var(--arura-spacing-sm) var(--arura-spacing-md);
+  color: var(--arura-gray-700);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all var(--arura-transition-normal);
+  position: relative;
+}
+
+.arura-nav-link:hover,
+.arura-nav-link.active {
+  color: var(--arura-primary);
+}
+
+.arura-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--arura-primary);
+  transition: all var(--arura-transition-normal);
+  transform: translateX(-50%);
+}
+
+.arura-nav-link:hover::after,
+.arura-nav-link.active::after {
+  width: 100%;
+}
+
+/* ================================================
+   7. Enhanced Forms
+   ================================================ */
+
+.arura-form-group {
+  margin-bottom: var(--arura-spacing-lg);
+}
+
+.arura-form-label {
+  display: block;
+  margin-bottom: var(--arura-spacing-sm);
+  color: var(--arura-gray-700);
+  font-weight: 500;
+}
+
+.arura-form-input {
+  width: 100%;
+  padding: var(--arura-spacing-md);
+  border: 2px solid var(--arura-gray-200);
+  border-radius: var(--arura-radius-md);
+  font-family: inherit;
+  transition: all var(--arura-transition-normal);
+  background: white;
+}
+
+.arura-form-input:focus {
+  outline: none;
+  border-color: var(--arura-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.arura-form-input::placeholder {
+  color: var(--arura-gray-400);
+}
+
+/* ================================================
+   8. Enhanced Modals
+   ================================================ */
+
+.arura-modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--arura-z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--arura-spacing-lg);
+}
+
+.arura-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.arura-modal-content {
+  position: relative;
+  background: white;
+  border-radius: var(--arura-radius-2xl);
+  box-shadow: var(--arura-shadow-xl);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ================================================
+   9. Enhanced Animations
+   ================================================ */
+
+.arura-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.arura-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.arura-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ================================================
+   10. Utility Classes
+   ================================================ */
+
+.arura-text-center { text-align: center; }
+.arura-text-left { text-align: left; }
+.arura-text-right { text-align: right; }
+
+.arura-flex { display: flex; }
+.arura-flex-col { flex-direction: column; }
+.arura-items-center { align-items: center; }
+.arura-justify-center { justify-content: center; }
+.arura-justify-between { justify-content: space-between; }
+
+.arura-w-full { width: 100%; }
+.arura-h-full { height: 100%; }
+
+.arura-p-xs { padding: var(--arura-spacing-xs); }
+.arura-p-sm { padding: var(--arura-spacing-sm); }
+.arura-p-md { padding: var(--arura-spacing-md); }
+.arura-p-lg { padding: var(--arura-spacing-lg); }
+.arura-p-xl { padding: var(--arura-spacing-xl); }
+
+.arura-m-xs { margin: var(--arura-spacing-xs); }
+.arura-m-sm { margin: var(--arura-spacing-sm); }
+.arura-m-md { margin: var(--arura-spacing-md); }
+.arura-m-lg { margin: var(--arura-spacing-lg); }
+.arura-m-xl { margin: var(--arura-spacing-xl); }
+
+.arura-rounded-sm { border-radius: var(--arura-radius-sm); }
+.arura-rounded-md { border-radius: var(--arura-radius-md); }
+.arura-rounded-lg { border-radius: var(--arura-radius-lg); }
+.arura-rounded-xl { border-radius: var(--arura-radius-xl); }
+
+.arura-shadow-sm { box-shadow: var(--arura-shadow-sm); }
+.arura-shadow-md { box-shadow: var(--arura-shadow-md); }
+.arura-shadow-lg { box-shadow: var(--arura-shadow-lg); }
+.arura-shadow-xl { box-shadow: var(--arura-shadow-xl); }
+
+/* ================================================
+   11. Responsive Utilities
+   ================================================ */
+
+@media (max-width: 768px) {
+  .arura-mobile-hidden { display: none; }
+  .arura-mobile-full { width: 100%; }
+  .arura-mobile-text-center { text-align: center; }
+}
+
+@media (min-width: 769px) {
+  .arura-desktop-hidden { display: none; }
+}
+
+/* ================================================
+   12. RTL Enhancements
+   ================================================ */
+
+[dir="rtl"] .arura-nav-link::after {
+  right: 50%;
+  left: auto;
+  transform: translateX(50%);
+}
+
+[dir="rtl"] .arura-btn {
+  direction: rtl;
+}
+
+[dir="rtl"] .arura-form-input {
+  text-align: right;
+}
+
+/* ================================================
+   13. Dark Mode Support
+   ================================================ */
+
+[data-theme="dark"] .arura-card {
+  background: var(--arura-gray-800);
+  border-color: var(--arura-gray-700);
+  color: var(--arura-gray-100);
+}
+
+[data-theme="dark"] .arura-nav {
+  background: rgba(31, 41, 55, 0.95);
+  border-color: var(--arura-gray-700);
+}
+
+[data-theme="dark"] .arura-form-input {
+  background: var(--arura-gray-800);
+  border-color: var(--arura-gray-600);
+  color: var(--arura-gray-100);
+}
+
+[data-theme="dark"] .arura-modal-content {
+  background: var(--arura-gray-800);
+  color: var(--arura-gray-100);
+}
+
+/* ================================================
+   14. Print Styles
+   ================================================ */
+
+@media print {
+  .arura-no-print { display: none !important; }
+  
+  .arura-product-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  .arura-btn {
+    border: 1px solid #333;
+    color: #333 !important;
+    background: transparent !important;
+  }
+}
+
+/* ================================================
+   15. Accessibility Enhancements
+   ================================================ */
+
+.arura-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.keyboard-navigation *:focus {
+  outline: 2px solid var(--arura-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .arura-btn-primary {
+    background: #000;
+    color: #fff;
+  }
+  
+  .arura-btn-outline {
+    border-color: #000;
+    color: #000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ================================================
+   16. Loading States
+   ================================================ */
+
+.arura-loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.arura-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arura-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid var(--arura-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,13 +1,148 @@
 # Changelog
 
-On this page, you will find all about Salla's Theme Raed updates, including frequent updates, bug fixes, new features, and deprecated elements. We will be displaying only released updates on [Theme Read's ChangeLog](https://github.com/SallaApp/theme-raed/blob/master/CHANGELOG.md) here on GitHub
+On this page, you will find all about Arura Theme updates, including frequent updates, bug fixes, new features, and deprecated elements. We will be displaying only released updates on [Arura Theme's ChangeLog](https://github.com/masindustrys/Aura-Theme/blob/main/CHANGELOG.md) here on GitHub
 
 > 📝 Note
 > 
-> Make sure to visit this page regularly for updates before working on your Theme based on Theme Raed, as we will be documenting any notable changes here.
+> Make sure to visit this page regularly for updates before working on your Theme based on Arura, as we will be documenting any notable changes here.
 
 > ℹ️ Info
 >The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+# 🚀 [2.0.0] - Arura Advanced Theme Launch (11-09-2025)
+
+## Major Transformation from Theme Raed to Arura
+
+This is a complete transformation of the original Salla Theme Raed into an advanced, modern e-commerce theme called **Arura**. This release represents a comprehensive overhaul with cutting-edge features and enhanced user experience.
+
+### ✨ New Features
+
+#### 🎨 **Advanced Theme System**
+- **Complete Rebranding**: Transformed from "Raed" to "Arura" with new identity
+- **Modern Design Language**: Contemporary, visually striking interface
+- **Advanced Color Schemes**: 6 predefined color palettes (Modern Blue, Nature Green, Royal Purple, Warm Orange, Bold Red, Elegant Gray)
+- **Enhanced CSS Architecture**: Comprehensive CSS custom properties and advanced styling system
+
+#### 🏠 **Enhanced Homepage Components**
+- **Advanced Hero Section**: Dynamic slider with advanced animations and call-to-action buttons
+- **Products Carousel Advanced**: Enhanced product display with best sellers, new arrivals, and custom selections
+- **Interactive Banners**: Customizable promotional banners with enhanced visual effects
+- **Smart Navigation**: Improved navigation with enhanced hover effects and transitions
+
+#### 🛒 **Shopping Experience Enhancements**
+- **Quick View Modal**: Instant product preview without page reload with full functionality
+- **Enhanced Product Cards**: Advanced hover effects, quick actions, and improved layout
+- **Advanced Wishlist**: Enhanced wishlist functionality with improved user experience
+- **Smart Search**: Advanced search capabilities with enhanced filtering (framework ready)
+
+#### 📱 **Social & Engagement Features**
+- **Social Media Integration**: Comprehensive social platform connectivity
+- **Social Sharing**: Advanced sharing widgets for WhatsApp, Telegram, Twitter, Facebook
+- **Newsletter Integration**: Enhanced email collection with modern UI
+- **Floating Share Button**: Mobile-optimized social sharing
+
+#### 🌐 **Localization & Accessibility**
+- **Enhanced RTL Support**: Improved right-to-left layout optimization
+- **Arabic Font Optimization**: Beautiful Arabic typography with enhanced rendering
+- **Accessibility Features**: WCAG compliant design with keyboard navigation support
+- **High Contrast Support**: Enhanced visibility options
+- **Reduced Motion Support**: Respects user preferences for animations
+
+#### 🎭 **Advanced UI/UX**
+- **Dark Mode Support**: Optional dark theme toggle (configurable)
+- **Advanced Animations**: Smooth transitions and micro-interactions
+- **Loading States**: Enhanced loading indicators and progress feedback
+- **Responsive Design**: Optimized for all devices with mobile-first approach
+
+#### ⚙️ **Technical Enhancements**
+- **Modular JavaScript Architecture**: Organized codebase with Arura-specific modules
+- **Performance Optimizations**: Lazy loading, image optimization, and code splitting
+- **Progressive Enhancement**: Enhanced functionality that works without JavaScript
+- **Advanced Build System**: Improved webpack configuration and asset optimization
+
+### 🔧 **Configuration Enhancements**
+
+#### **New Theme Settings**
+- Quick View enable/disable toggle
+- Advanced animations control
+- Social sharing configuration
+- Arabic font optimization toggle
+- Dark mode enablement
+- Animation speed control
+- Color scheme selection
+
+#### **Enhanced Components**
+- Hero Section Advanced with configurable slides and animations
+- Products Carousel Advanced with multiple display options
+- Social Integration with platform-specific configurations
+- Enhanced testimonials with improved styling
+
+### 📱 **Mobile Optimizations**
+- Enhanced mobile navigation
+- Touch-optimized interactions
+- Mobile-specific social sharing
+- Improved mobile product cards
+- Responsive image optimization
+
+### 🔒 **Security & Performance**
+- Enhanced input validation
+- XSS prevention measures
+- Optimized asset loading
+- Improved caching strategies
+- Reduced bundle sizes
+
+### 📊 **Developer Experience**
+- **Enhanced Documentation**: Comprehensive guides and API documentation
+- **Deployment Guide**: Step-by-step deployment instructions
+- **Component Library**: Reusable components with clear documentation
+- **Development Tools**: Improved build process and debugging capabilities
+
+### 🌍 **Internationalization**
+- Enhanced Arabic language support
+- Improved RTL layout handling
+- Cultural design considerations
+- Localized component configurations
+
+### 📦 **Dependencies Updates**
+- Updated to latest Salla Twilight components
+- Enhanced build dependencies
+- Optimized package bundle
+- Improved compatibility
+
+### 🚀 **Performance Improvements**
+- **Faster Load Times**: Optimized asset loading and code splitting
+- **Enhanced Caching**: Improved browser caching strategies
+- **Image Optimization**: WebP support and responsive images
+- **JavaScript Optimization**: Lazy loading and progressive enhancement
+
+### 🎯 **Breaking Changes**
+- Theme name changed from "theme-raed" to "arura-theme"
+- New component structure for advanced features
+- Enhanced CSS architecture (backward compatible)
+- New JavaScript module system
+
+### 📋 **Migration Notes**
+- This is a complete transformation, not an update
+- New installation required for existing Raed theme users
+- Enhanced features require new configuration
+- Improved documentation available for migration
+
+### 🔗 **Repository Changes**
+- **New Repository**: github.com/masindustrys/Aura-Theme
+- **New Author**: masindustrys
+- **Enhanced README**: Comprehensive documentation and feature overview
+- **Deployment Guide**: Detailed deployment and customization instructions
+
+### 📞 **Support & Community**
+- **Enhanced Support**: Comprehensive documentation and community support
+- **GitHub Issues**: Dedicated issue tracking and feature requests
+- **Community Resources**: Integration with Salla developer community
+
+---
+
+## Previous Raed Theme History
+
+*The following entries represent the history of the original Theme Raed before the Arura transformation:*
 
 #  🫆 [1.229.0](https://github.com/SallaApp/theme-raed/compare/1.228.0...1.229.0) (03-08-2025)
 

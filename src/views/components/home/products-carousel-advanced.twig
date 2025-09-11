@@ -1,0 +1,255 @@
+{#
+  Advanced Products Carousel Component for Arura Theme
+  Features: Best sellers, new arrivals, and custom product selection
+#}
+
+<section class="products-carousel-advanced py-16 bg-white">
+    <div class="container mx-auto px-4">
+        
+        {# Section Header #}
+        <div class="section-header text-center mb-12">
+            {% if component.title %}
+                <h2 class="section-title text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                    {{ component.title }}
+                </h2>
+            {% endif %}
+            
+            {# Product Type Tabs #}
+            <div class="product-type-tabs flex justify-center mb-8" x-data="productCarousel">
+                <div class="tab-buttons flex bg-gray-100 rounded-lg p-1 space-x-1">
+                    <button class="tab-btn px-6 py-3 rounded-md font-medium transition-all duration-300"
+                            :class="activeTab === 'best_selling' ? 'bg-white text-primary shadow-md' : 'text-gray-600 hover:text-primary'"
+                            @click="switchTab('best_selling')">
+                        {{ trans('products.best_selling') }}
+                    </button>
+                    <button class="tab-btn px-6 py-3 rounded-md font-medium transition-all duration-300"
+                            :class="activeTab === 'new_arrivals' ? 'bg-white text-primary shadow-md' : 'text-gray-600 hover:text-primary'"
+                            @click="switchTab('new_arrivals')">
+                        {{ trans('products.new_arrivals') }}
+                    </button>
+                    <button class="tab-btn px-6 py-3 rounded-md font-medium transition-all duration-300"
+                            :class="activeTab === 'featured' ? 'bg-white text-primary shadow-md' : 'text-gray-600 hover:text-primary'"
+                            @click="switchTab('featured')">
+                        {{ trans('products.featured') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        {# Products Grid Container #}
+        <div class="products-container relative" x-data="productCarousel">
+            
+            {# Navigation Arrows #}
+            <button class="carousel-nav prev-btn absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-primary transition-all duration-300"
+                    @click="prevSlide()" :disabled="currentSlide === 0">
+                <i class="sicon-arrow-right text-xl"></i>
+            </button>
+            
+            <button class="carousel-nav next-btn absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-primary transition-all duration-300"
+                    @click="nextSlide()" :disabled="currentSlide >= maxSlides">
+                <i class="sicon-arrow-left text-xl"></i>
+            </button>
+            
+            {# Products Carousel #}
+            <div class="products-carousel overflow-hidden">
+                <div class="products-track flex transition-transform duration-500 ease-in-out"
+                     :style="`transform: translateX(-${currentSlide * slideWidth}%)`">
+                     
+                    {# Best Selling Products #}
+                    <div class="product-tab w-full flex-shrink-0" x-show="activeTab === 'best_selling'">
+                        <div class="products-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                            {% set best_selling_products = store.best_selling_products(10) %}
+                            {% for product in best_selling_products %}
+                                <div class="product-card-wrapper">
+                                    {% include 'pages/partials/product/card-enhanced.twig' with {product: product} %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    {# New Arrivals #}
+                    <div class="product-tab w-full flex-shrink-0" x-show="activeTab === 'new_arrivals'">
+                        <div class="products-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                            {% set new_products = store.latest_products(10) %}
+                            {% for product in new_products %}
+                                <div class="product-card-wrapper">
+                                    {% include 'pages/partials/product/card-enhanced.twig' with {product: product} %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    {# Featured Products #}
+                    <div class="product-tab w-full flex-shrink-0" x-show="activeTab === 'featured'">
+                        <div class="products-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                            {% set featured_products = store.featured_products(10) %}
+                            {% for product in featured_products %}
+                                <div class="product-card-wrapper">
+                                    {% include 'pages/partials/product/card-enhanced.twig' with {product: product} %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+        {# View More Button #}
+        {% if component.show_view_more %}
+            <div class="text-center mt-12">
+                <a href="{{ store.url }}/products" 
+                   class="view-more-btn inline-flex items-center px-8 py-4 bg-gray-100 hover:bg-primary hover:text-white text-gray-800 font-semibold rounded-lg transition-all duration-300 transform hover:scale-105">
+                    {{ trans('common.view_all') }}
+                    <i class="sicon-arrow-left mx-2"></i>
+                </a>
+            </div>
+        {% endif %}
+        
+    </div>
+</section>
+
+{# Alpine.js Product Carousel Component #}
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('productCarousel', () => ({
+        activeTab: 'best_selling',
+        currentSlide: 0,
+        slideWidth: 20, // 5 products per view on desktop
+        maxSlides: 0,
+        
+        init() {
+            this.calculateMaxSlides();
+            this.$nextTick(() => {
+                this.updateSlideWidth();
+            });
+            
+            window.addEventListener('resize', () => {
+                this.updateSlideWidth();
+                this.calculateMaxSlides();
+            });
+        },
+        
+        switchTab(tab) {
+            this.activeTab = tab;
+            this.currentSlide = 0;
+            this.calculateMaxSlides();
+        },
+        
+        updateSlideWidth() {
+            const container = this.$el.querySelector('.products-grid');
+            if (container) {
+                const columns = window.getComputedStyle(container).gridTemplateColumns.split(' ').length;
+                this.slideWidth = 100 / columns;
+            }
+        },
+        
+        calculateMaxSlides() {
+            const totalProducts = this.$el.querySelectorAll('.product-card-wrapper').length;
+            const visibleProducts = Math.floor(100 / this.slideWidth);
+            this.maxSlides = Math.max(0, totalProducts - visibleProducts);
+        },
+        
+        nextSlide() {
+            if (this.currentSlide < this.maxSlides) {
+                this.currentSlide++;
+            }
+        },
+        
+        prevSlide() {
+            if (this.currentSlide > 0) {
+                this.currentSlide--;
+            }
+        }
+    }));
+});
+</script>
+
+{# Component Styles #}
+<style>
+.products-carousel-advanced {
+    background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+}
+
+.section-title {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tab-btn {
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    transform: translateY(-1px);
+}
+
+.carousel-nav {
+    transition: all 0.3s ease;
+}
+
+.carousel-nav:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.carousel-nav:disabled:hover {
+    transform: translateY(-50%) scale(1);
+}
+
+.product-card-wrapper {
+    transition: transform 0.3s ease;
+}
+
+.product-card-wrapper:hover {
+    transform: translateY(-5px);
+}
+
+.view-more-btn {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.view-more-btn:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 1280px) {
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .carousel-nav {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tab-buttons {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .tab-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>

@@ -1,7 +1,7 @@
 {
     "name": {
-        "ar": "رائد",
-        "en": "Theme Raed"
+        "ar": "أورا",
+        "en": "Arura Theme"
     },
     "repository": "https://github.com/SallaApp/theme-raed",
     "author_email": "support@salla.sa",
@@ -22,7 +22,15 @@
         "component-store-features",
         "component-youtube",
         "menu-images",
-        "filters"
+        "filters",
+        "quick-view",
+        "advanced-search",
+        "social-integration",
+        "product-reviews",
+        "newsletter",
+        "advanced-wishlist",
+        "custom-banners",
+        "rtl-optimization"
     ],
     "settings": [
         {
@@ -214,6 +222,155 @@
             "required": false,
             "value": false,
             "selected": false
+        },
+        {
+            "type": "static",
+            "id": "static-line-arura",
+            "format": "line"
+        },
+        {
+            "type": "static",
+            "format": "title",
+            "id": "static-label-arura",
+            "value": "إعدادات أورا المتقدمة",
+            "variant": "h6"
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "label": "تفعيل العرض السريع للمنتجات",
+            "description": "تمكين نافذة العرض السريع للمنتجات دون الحاجة لمغادرة الصفحة",
+            "id": "enable_quick_view",
+            "format": "switch",
+            "required": false,
+            "value": true,
+            "selected": true
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "label": "تفعيل التأثيرات المتحركة المتقدمة",
+            "description": "تفعيل التأثيرات البصرية والحركية المحسنة للثيم",
+            "id": "enable_advanced_animations",
+            "format": "switch",
+            "required": false,
+            "value": true,
+            "selected": true
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "label": "عرض أزرار المشاركة الاجتماعية",
+            "description": "إظهار أزرار المشاركة على وسائل التواصل الاجتماعي",
+            "id": "show_social_sharing",
+            "format": "switch",
+            "required": false,
+            "value": true,
+            "selected": true
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "label": "تحسين الخطوط العربية",
+            "description": "تطبيق التحسينات المتقدمة للخطوط العربية وتجربة القراءة",
+            "id": "arabic_font_optimization",
+            "format": "switch",
+            "required": false,
+            "value": true,
+            "selected": true
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "label": "تفعيل الوضع الليلي",
+            "description": "إتاحة تبديل المظهر بين الفاتح والداكن للمستخدمين",
+            "id": "enable_dark_mode",
+            "format": "switch",
+            "required": false,
+            "value": false,
+            "selected": false
+        },
+        {
+            "id": "primary_color_scheme",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "نظام الألوان الأساسي",
+            "description": "اختر نظام الألوان الأساسي للثيم",
+            "icon": "sicon-palette",
+            "selected": [
+                {
+                    "label": "أزرق عصري",
+                    "value": "modern-blue",
+                    "key": "modern-blue"
+                }
+            ],
+            "options": [
+                {
+                    "label": "أزرق عصري",
+                    "value": "modern-blue",
+                    "key": "modern-blue"
+                },
+                {
+                    "label": "أخضر طبيعي",
+                    "value": "nature-green",
+                    "key": "nature-green"
+                },
+                {
+                    "label": "بنفسجي ملكي",
+                    "value": "royal-purple",
+                    "key": "royal-purple"
+                },
+                {
+                    "label": "برتقالي دافئ",
+                    "value": "warm-orange",
+                    "key": "warm-orange"
+                },
+                {
+                    "label": "أحمر جريء",
+                    "value": "bold-red",
+                    "key": "bold-red"
+                },
+                {
+                    "label": "رمادي أنيق",
+                    "value": "elegant-gray",
+                    "key": "elegant-gray"
+                }
+            ],
+            "source": "Manual",
+            "required": true
+        },
+        {
+            "type": "items",
+            "id": "animation_speed",
+            "format": "dropdown-list",
+            "label": "سرعة التأثيرات المتحركة",
+            "description": "تحديد سرعة التأثيرات والانتقالات البصرية",
+            "icon": "sicon-timer",
+            "selected": [
+                {
+                    "label": "متوسط",
+                    "value": "medium",
+                    "key": "medium"
+                }
+            ],
+            "options": [
+                {
+                    "label": "بطيء",
+                    "value": "slow",
+                    "key": "slow"
+                },
+                {
+                    "label": "متوسط",
+                    "value": "medium", 
+                    "key": "medium"
+                },
+                {
+                    "label": "سريع",
+                    "value": "fast",
+                    "key": "fast"
+                }
+            ],
+            "required": false
         }
     ],
     "components": [
@@ -1023,11 +1180,322 @@
                     "maxLength": 30
                 }
             ]
+        },
+        {
+            "key": "hero-section-advanced",
+            "title": "قسم البطل المتقدم",
+            "icon": "sicon-slider",
+            "path": "home.hero-section-advanced",
+            "image": "https://cdn.salla.sa/mQgZlG/hero-advanced-preview.png",
+            "is_default": true,
+            "fields": [
+                {
+                    "type": "static",
+                    "format": "description",
+                    "id": "hero-desc",
+                    "value": "<div style='margin: -24px -20px 20px'><h6>قسم البطل المتقدم مع إعدادات شاملة</h6><p>اعرض منتجاتك وعروضك بطريقة احترافية مع تأثيرات بصرية متقدمة</p></div>"
+                },
+                {
+                    "type": "boolean",
+                    "icon": "sicon-toggle-off",
+                    "label": "تفعيل التأثيرات المتحركة",
+                    "id": "enable_animations",
+                    "format": "switch",
+                    "value": true,
+                    "selected": true
+                },
+                {
+                    "id": "slides",
+                    "type": "collection",
+                    "format": "collection",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 8,
+                    "label": "الشرائح",
+                    "item_label": "شريحة",
+                    "value": [
+                        {
+                            "slides.image": "https://cdn.salla.sa/ZrBEO/hero-slide-1.jpg",
+                            "slides.title": "اكتشف مجموعتنا الجديدة",
+                            "slides.subtitle": "عروض حصرية ومنتجات مميزة",
+                            "slides.button_text": "تسوق الآن",
+                            "slides.button_url": ""
+                        }
+                    ],
+                    "fields": [
+                        {
+                            "type": "string",
+                            "icon": "sicon-image",
+                            "label": "صورة الشريحة",
+                            "id": "slides.image",
+                            "format": "image",
+                            "required": true,
+                            "description": "المقاس المناسب 1920×800 بكسل"
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-format-text-alt",
+                            "label": "العنوان الرئيسي",
+                            "multilanguage": true,
+                            "id": "slides.title",
+                            "format": "text",
+                            "required": false,
+                            "maxLength": 100
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-typography",
+                            "label": "العنوان الفرعي",
+                            "multilanguage": true,
+                            "id": "slides.subtitle",
+                            "format": "textarea",
+                            "required": false,
+                            "maxLength": 200
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-format-text-alt",
+                            "label": "نص الزر",
+                            "multilanguage": true,
+                            "id": "slides.button_text",
+                            "format": "text",
+                            "required": false,
+                            "maxLength": 50
+                        },
+                        {
+                            "type": "items",
+                            "icon": "sicon-link",
+                            "label": "رابط الزر",
+                            "id": "slides.button_url",
+                            "format": "variable-list",
+                            "searchable": true,
+                            "source": "custom",
+                            "required": false,
+                            "sources": [
+                                {
+                                    "label": "تصنيف",
+                                    "key": "categories",
+                                    "value": "categories"
+                                },
+                                {
+                                    "label": "منتج",
+                                    "key": "products",
+                                    "value": "products"
+                                },
+                                {
+                                    "label": "التخفيضات",
+                                    "key": "offers_link",
+                                    "value": "offers_link"
+                                },
+                                {
+                                    "label": "رابط خارجي",
+                                    "key": "custom",
+                                    "value": "custom"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "products-carousel-advanced",
+            "title": "عرض المنتجات المتقدم",
+            "icon": "sicon-apps",
+            "path": "home.products-carousel-advanced",
+            "image": "https://cdn.salla.sa/mQgZlG/products-carousel-preview.png",
+            "fields": [
+                {
+                    "type": "static",
+                    "format": "description",
+                    "id": "carousel-desc",
+                    "value": "<div style='margin: -24px -20px 20px'><h6>عرض متقدم للمنتجات</h6><p>اعرض الأكثر مبيعاً والمنتجات الجديدة بتصميم احترافي</p></div>"
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "العنوان",
+                    "multilanguage": true,
+                    "id": "title",
+                    "format": "text",
+                    "required": false,
+                    "value": {
+                        "ar": "المنتجات المميزة",
+                        "en": "Featured Products"
+                    }
+                },
+                {
+                    "type": "items",
+                    "icon": "sicon-keyboard_arrow_down",
+                    "label": "نوع المنتجات",
+                    "id": "product_type",
+                    "format": "dropdown-list",
+                    "selected": [
+                        {
+                            "label": "الأكثر مبيعاً",
+                            "value": "best_selling",
+                            "key": "best_selling"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "الأكثر مبيعاً",
+                            "value": "best_selling",
+                            "key": "best_selling"
+                        },
+                        {
+                            "label": "المنتجات الجديدة",
+                            "value": "new_arrivals", 
+                            "key": "new_arrivals"
+                        },
+                        {
+                            "label": "منتجات مخصصة",
+                            "value": "custom",
+                            "key": "custom"
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "type": "items",
+                    "icon": "sicon-keyboard_arrow_down",
+                    "label": "المنتجات المخصصة",
+                    "id": "custom_products",
+                    "format": "dropdown-list",
+                    "multichoice": true,
+                    "searchable": true,
+                    "source": "products",
+                    "maxLength": 12,
+                    "conditions": [
+                        {
+                            "id": "product_type",
+                            "operation": "=",
+                            "value": "custom"
+                        }
+                    ]
+                },
+                {
+                    "type": "boolean",
+                    "icon": "sicon-toggle-off",
+                    "label": "عرض زر المزيد",
+                    "id": "show_view_more",
+                    "format": "switch",
+                    "value": true,
+                    "selected": true
+                }
+            ]
+        },
+        {
+            "key": "social-integration",
+            "title": "التكامل مع وسائل التواصل",
+            "icon": "sicon-share",
+            "path": "components.social-integration",
+            "image": "https://cdn.salla.sa/mQgZlG/social-integration-preview.png",
+            "fields": [
+                {
+                    "type": "static",
+                    "format": "description",
+                    "id": "social-desc",
+                    "value": "<div style='margin: -24px -20px 20px'><h6>ربط متجرك بوسائل التواصل الاجتماعي</h6><p>اعرض روابط وسائل التواصل وزر المشاركة</p></div>"
+                },
+                {
+                    "id": "social_links",
+                    "type": "collection",
+                    "format": "collection",
+                    "required": false,
+                    "minLength": 0,
+                    "maxLength": 10,
+                    "label": "روابط وسائل التواصل",
+                    "item_label": "رابط",
+                    "value": [
+                        {
+                            "social_links.platform": "twitter",
+                            "social_links.url": "https://twitter.com/yourstore",
+                            "social_links.icon": "sicon-twitter"
+                        },
+                        {
+                            "social_links.platform": "instagram",
+                            "social_links.url": "https://instagram.com/yourstore",
+                            "social_links.icon": "sicon-instagram"
+                        }
+                    ],
+                    "fields": [
+                        {
+                            "type": "items",
+                            "icon": "sicon-keyboard_arrow_down",
+                            "label": "المنصة",
+                            "id": "social_links.platform",
+                            "format": "dropdown-list",
+                            "selected": [],
+                            "options": [
+                                {
+                                    "label": "تويتر",
+                                    "value": "twitter",
+                                    "key": "twitter"
+                                },
+                                {
+                                    "label": "إنستغرام",
+                                    "value": "instagram",
+                                    "key": "instagram"
+                                },
+                                {
+                                    "label": "فيسبوك",
+                                    "value": "facebook",
+                                    "key": "facebook"
+                                },
+                                {
+                                    "label": "لينكدإن",
+                                    "value": "linkedin",
+                                    "key": "linkedin"
+                                },
+                                {
+                                    "label": "يوتيوب",
+                                    "value": "youtube",
+                                    "key": "youtube"
+                                },
+                                {
+                                    "label": "تيك توك",
+                                    "value": "tiktok",
+                                    "key": "tiktok"
+                                },
+                                {
+                                    "label": "واتساب",
+                                    "value": "whatsapp",
+                                    "key": "whatsapp"
+                                },
+                                {
+                                    "label": "تيليجرام",
+                                    "value": "telegram",
+                                    "key": "telegram"
+                                }
+                            ],
+                            "required": true
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-link",
+                            "label": "رابط المنصة",
+                            "id": "social_links.url",
+                            "format": "text",
+                            "required": true,
+                            "placeholder": "https://..."
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-format-text-alt",
+                            "label": "أيقونة المنصة",
+                            "id": "social_links.icon",
+                            "format": "icon",
+                            "required": false
+                        }
+                    ]
+                }
+            ]
         }
     ],
     "support_url": "https://salla.com/",
     "description": {
-        "ar": "مجموعة كبيرة من المزايا لدعم تجارتك وتقديم تجربة تسوق مثيرة لعملائك",
-        "en": "A wide range of features to support your business and provide an exciting shopping experience for your customers"
+        "ar": "ثيم أورا المتقدم - مجموعة شاملة من المزايا المتطورة لدعم تجارتك الإلكترونية وتقديم تجربة تسوق استثنائية ومميزة لعملائك مع دعم كامل للغة العربية",
+        "en": "Arura Advanced Theme - A comprehensive suite of cutting-edge features to support your e-commerce business and provide an exceptional shopping experience for your customers with full Arabic language support"
     }
 }
